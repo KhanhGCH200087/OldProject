@@ -22,5 +22,8 @@
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "mongodb": "^4.7.0"
+  },
+  "engines": {
+    "node": ">=19"
   }
 }
