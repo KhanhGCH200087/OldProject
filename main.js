@@ -1,3 +1,4 @@
+//Thư viện
 var express = require('express');
 const async = require('hbs/lib/async')
 const mongo = require('mongodb');
@@ -5,15 +6,16 @@ const { ObjectId } = require('mongodb')
 var app = express()
 
 app.set('view engine', 'hbs')
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true})) //this sentence is used in order to allow to read data from HTML elements 
 
+//Database
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb+srv://GCH200087:gch200087@cluster0.tkcln.mongodb.net/?retryWrites=true&w=majority'
-//var url = 'mongodb://leduchuy2207:leduchuy2002@ac-uijn7xw-shard-00-00.q7dpd26.mongodb.net:27017,ac-uijn7xw-shard-00-01.q7dpd26.mongodb.net:27017,ac-uijn7xw-shard-00-02.q7dpd26.mongodb.net:27017/test?replicaSet=atlas-hoj30z-shard-0&ssl=true&authSource=admin'
 
-const PORT = process.env.PORT || 7000
+//Cổng
+const PORT = process.env.PORT
 app.listen(PORT)
-console.log("Server is running")
+console.log("Server is running" + PORT)
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Index page
@@ -24,16 +26,14 @@ app.get('/', (req,res) =>{
 // Search
 app.post('/search',async (req,res)=>{
     let name = req.body.txtName
-
+    if(name = ''){
+        res.render('search',{search_err: 'Please input after enter'})
+    }
     let server = await MongoClient.connect(url)
-
     let dbo = server.db("ATNTOY")
-   
-    let products = await dbo.collection('TOY').find({$or:[{'name': new RegExp(name,'i')},
-    {'price': new RegExp(name)}]}).toArray() 
+    let products = await dbo.collection('TOY').find({$or:[{'name': new RegExp(name,'i')}]}).toArray() //Find here 
     res.render('AllProduct',{'products':products})
 })
-
 
 // Add new Product
 app.get('/create',(req,res)=>{
@@ -41,11 +41,24 @@ app.get('/create',(req,res)=>{
 })
 
 app.post('/NewProduct',async (req,res)=>{
-    let name = req.body.txtName
+    let name = req.body.txtName 
+    if(name = ''){ //validation
+        res.render('NewProduct', {name_err: 'Please enter name'})
+    }
     let price =req.body.txtPrice
-    let picURL = req.body.txtPicture
+    if(price < 1){
+        res.render('NewProduct', {price_err: 'Please enter price'})
+    }
+    let picURL = req.body.txtPicURL
+    if(picURL = ''){
+        res.render('NewProduct', {picURL_err: 'Please enter picture'})
+    }
     let description = req.body.txtDescription
     let amount = req.body.txtAmount
+    if(amount < 1){
+        res.render('NewProduct', {amount_err: 'Please enter number of product'})
+    }
+
     let product = {
         'name':name,
         'price': price,
@@ -74,6 +87,7 @@ app.get('/viewAll',async (req,res)=>{
     
 })
 
+//-----------------------------------------------------------------------
 
 
 
