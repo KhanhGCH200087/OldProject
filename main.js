@@ -27,7 +27,7 @@ app.post('/search',async (req,res)=>{
 
     let server = await MongoClient.connect(url)
 
-    let dbo = server.db("ASM1644")
+    let dbo = server.db("ATNTOY")
    
     let products = await dbo.collection('TOY').find({$or:[{'name': new RegExp(name,'i')},
     {'price': new RegExp(name)}]}).toArray() 
@@ -54,7 +54,7 @@ app.post('/NewProduct',async (req,res)=>{
         'amount': amount
     }
     let client= await MongoClient.connect(url);
-    let dbo = client.db("ASM1644");
+    let dbo = client.db("ATNTOY");
     await dbo.collection("TOY").insertOne(product);
     if (product == null) {
         res.render('/')
@@ -68,7 +68,7 @@ app.post('/NewProduct',async (req,res)=>{
 app.get('/viewAll',async (req,res)=>{
     var page = req.query.page
     let client= await MongoClient.connect(url);
-    let dbo = client.db("ASM1644");
+    let dbo = client.db("ATNTOY");
         let products = await dbo.collection("TOY").find().toArray()
         res.render('AllProduct',{'products':products})
     
