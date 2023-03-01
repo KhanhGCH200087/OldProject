@@ -27,7 +27,7 @@ app.post('/search',async (req,res)=>{
 
     let server = await MongoClient.connect(url)
 
-    let dbo = server.db("ATNTOY")
+    let dbo = server.db("ASM1644")
    
     let products = await dbo.collection('TOY').find({$or:[{'name': new RegExp(name,'i')},
     {'price': new RegExp(name)}]}).toArray() 
@@ -54,7 +54,7 @@ app.post('/NewProduct',async (req,res)=>{
         'amount': amount
     }
     let client= await MongoClient.connect(url);
-    let dbo = client.db("ATNTOY");
+    let dbo = client.db("ASM1644");
     await dbo.collection("TOY").insertOne(product);
     if (product == null) {
         res.render('/')
@@ -68,52 +68,13 @@ app.post('/NewProduct',async (req,res)=>{
 app.get('/viewAll',async (req,res)=>{
     var page = req.query.page
     let client= await MongoClient.connect(url);
-    let dbo = client.db("ATNTOY");
+    let dbo = client.db("ASM1644");
         let products = await dbo.collection("TOY").find().toArray()
         res.render('AllProduct',{'products':products})
     
 })
 
-// Update product
-app.get('/update',async(req,res)=>{
-    let id = req.query.id;
-    const client = await MongoClient.connect(url)
-    let dbo = client.db("ATNTOY")
-    let products = await dbo.collection("TOY").findOne({_id : ObjectId(id)})
-    res.render('update', {'products': products})
 
-})
-app.post('/updateProduct', async(req,res)=>{
-    let id = req.body._id;
-    let name = req.body.txtName
-    let price =req.body.txtPrice
-    let picURL = req.body.txtPicture
-    let description = req.body.txtDescription
-    let amount = req.body.txtAmount
-    let client = await MongoClient.connect(url)
-    let dbo = client.db("ATNTOY")
-    console.log(id)
-    await dbo.collection("TOY").updateOne({_id: ObjectId(id)}, {
-         $set: {
-             'name': name,
-             'price': price,
-             'picURL': picURL,
-             'description': description,
-             'amount': amount
-         }
-    })
-    res.redirect('/viewAll')
-})
-
-// Delete product
-app.get('/delete',async(req,res)=>{
-    let id = mongo.ObjectId(req.query.id); 
-    const client = await MongoClient.connect(url);
-    let dbo = client.db("ATNTOY");
-    let collection = dbo.collection('TOY')  
-    let products = await collection.deleteOne({'_id' : id});
-    res.redirect('/viewAll')
-})
 
 
 
