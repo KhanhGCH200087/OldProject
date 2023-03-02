@@ -36,17 +36,17 @@
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" placeholder="Enter Name" name="txtName">
-      <span style="color:red"> {{name_err}}</span>
+      {{!-- <span style="color:red"> {{name_err}}</span> --}}
     </div>
     <div class="form-group">
       <label for="price">Price:</label>
       <input type="number" class="form-control" id="price" placeholder="Enter Price" name="txtPrice">
-      <span style="color:red"> {{price_err}}</span>
+      {{!-- <span style="color:red"> {{price_err}}</span> --}}
     </div>
     <div class="form-group">
       <label for="amount">Quantity:</label>
       <input type="number" class="form-control" id="amount" placeholder="Enter Number" name="txtAmount">
-      <span style="color:red"> {{quantity_err}}</span>
+      {{!-- <span style="color:red"> {{quantity_err}}</span> --}}
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
@@ -55,9 +55,10 @@
     <div class="form-group">
       <label for="picture">Picture</label>
       <input type="text" class="form-control" id="picture" placeholder="Enter URL" name="txtPicURL">
-      <span style="color:red"> {{picURL_err}}</span>
+      {{!-- <span style="color:red"> {{picURL_err}}</span> --}}
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
+    <span style="color:red"> {{add_err}}
   </form>
 </div>
     

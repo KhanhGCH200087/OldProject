@@ -70,7 +70,7 @@ app.post('/NewProduct',async (req,res)=>{
     let dbo = client.db("ATNTOY");
     if(name.length <= 0 || price < 1 || picURL.length <= 0 ||amount < 1 )
     { //validation
-        res.render('NewProduct', {name_err: 'Please enter name'})
+        res.render('NewProduct', {add_err: 'Please enter blank field'})
     } else {
         await dbo.collection("TOY").insertOne(product);
         if (product == null) {
