@@ -42,7 +42,7 @@ app.get('/create',(req,res)=>{
 
 app.post('/NewProduct',async (req,res)=>{
     let name = req.body.txtName 
-    if(name = ''){ //validation
+    if(name.length <= 0){ //validation
         res.render('NewProduct', {name_err: 'Please enter name'})
     }
     let price =req.body.txtPrice
@@ -50,7 +50,7 @@ app.post('/NewProduct',async (req,res)=>{
         res.render('NewProduct', {price_err: 'Please enter price'})
     }
     let picURL = req.body.txtPicURL
-    if(picURL = ''){
+    if(picURL.length <= 0){
         res.render('NewProduct', {picURL_err: 'Please enter picture'})
     }
     let description = req.body.txtDescription
