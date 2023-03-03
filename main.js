@@ -42,22 +42,10 @@ app.get('/create',(req,res)=>{
 
 app.post('/NewProduct',async (req,res)=>{
     let name = req.body.txtName 
-    // if(name.length <= 0  ){ //validation
-    //     res.render('NewProduct', {name_err: 'Please enter name'})
-    // }
-    let price =req.body.txtPrice
-    // if(price < 1){
-    //     res.render('NewProduct', {price_err: 'Please enter price'})
-    // }
+    let price = parseFloat(req.body.txtPrice)
     let picURL = req.body.txtPicURL
-    // if(picURL.length <= 0){
-    //     res.render('NewProduct', {picURL_err: 'Please enter picture'})
-    // }
     let description = req.body.txtDescription
-    let amount = req.body.txtAmount
-    // if(amount < 1){
-    //     res.render('NewProduct', {amount_err: 'Please enter number of product'})
-    // }
+    let amount = parseInt(req.body.txtAmount)
 
     let product = {
         'name':name,
