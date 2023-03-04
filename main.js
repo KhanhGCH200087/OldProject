@@ -26,7 +26,7 @@ app.get('/', (req,res) =>{
 // Search
 app.post('/search',async (req,res)=>{
     let name = req.body.txtName
-    if(name = ''){
+    if(name.length <= 0){
         res.render('search',{search_err: 'Please input after enter'})
     }
     let server = await MongoClient.connect(url)
