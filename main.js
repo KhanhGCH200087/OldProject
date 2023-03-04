@@ -69,7 +69,7 @@ app.post('/NewProduct',async (req,res)=>{
     
 })
 
-
+//----------------------------------------------------------------------------
 // All product
 app.get('/viewAll',async (req,res)=>{
     var page = req.query.page
@@ -135,3 +135,33 @@ app.get('/sort_descending_by_price', async (req,res)=>{
 })
 
 //-------------------------------------------------------------------------
+//Update product
+app.get('/update',async(req,res)=>{
+    let id = req.query.id;
+    const client = await MongoClient.connect(url)
+    let dbo = client.db("ATNTOY")
+    let products = await dbo.collection("TOY").findOne({_id : ObjectId(id)})
+    res.render('update', {'products': products})
+
+})
+app.post('/updateProduct', async(req,res)=>{
+    let id = req.body._id;
+    let name = req.body.txtName 
+    let price = parseFloat(req.body.txtPrice)
+    let picURL = req.body.txtPicURL
+    let description = req.body.txtDescription
+    let amount = parseInt(req.body.txtAmount)
+    let client = await MongoClient.connect(url)
+    let dbo = client.db("ATNTOY")
+    console.log(id)
+    await dbo.collection("TOY").updateOne({_id: ObjectId(id)}, {
+         $set: {
+             'name': name,
+             'price': price,
+             'picURL': picURL,
+             'description': description,
+             'amount': amount
+         }
+    })
+    res.redirect('/viewAll')
+})
