@@ -56,9 +56,9 @@ app.post('/NewProduct',async (req,res)=>{
     }
     let client= await MongoClient.connect(url);
     let dbo = client.db("ATNTOY");
-    if(name.length <= 0 || price < 1 || picURL.length <= 0 ||amount < 1 )
+    if(name.length <= 0 || price <= 0 || picURL.length <= 0 || amount <= 0)
     { //validation
-        res.render('NewProduct', {add_err: 'Please enter blank field'})
+        res.render('NewProduct', {add_err: 'Please enter field again'})
     } else {
         await dbo.collection("TOY").insertOne(product);
         if (product == null) {
