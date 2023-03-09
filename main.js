@@ -150,15 +150,18 @@ app.post('/updateProduct', async(req,res)=>{
     let description = req.body.txtDescription
     let amount = parseInt(req.body.txtAmount)
     if (name.length <= 2) {
-        res.render('updateProduct', { 'nameError': 'Name cannot be less than 5 character !' })
+        res.render('viewAll', { 'nameError': 'Name cannot be less than 5 character !' })
+        return
     }
     if(price <= 0)
     {
-        res.render('updateProduct', { 'priceError': 'Price cannot be equal or less than 0 !' })
+        res.render('viewAll', { 'priceError': 'Price cannot be equal or less than 0 !' })
+        return
     }
     if(picURL.length <= 0)
     {
-        res.render('updateProduct', { 'pictureError': 'URL of picture cannot be empty !' })
+        res.render('viewAll', { 'pictureError': 'URL of picture cannot be empty !' })
+        return
     }
     let client = await MongoClient.connect(url)
     let dbo = client.db("ATNTOY")
