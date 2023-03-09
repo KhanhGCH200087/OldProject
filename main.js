@@ -153,7 +153,7 @@ app.post('/updateProduct', async(req,res)=>{
     let dbo = client.db("ATNTOY")
     console.log(id)
      if (name.length <= 0, 'name') {
-        res.render('updateProduct',{'nameError': 'Name cant be blank'})
+        res.render('update',{'nameError': 'Name cant be blank'})
         return
     }
     await dbo.collection("TOY").updateOne({_id: ObjectId(id)}, {
