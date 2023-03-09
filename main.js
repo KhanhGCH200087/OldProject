@@ -152,10 +152,10 @@ app.post('/updateProduct', async(req,res)=>{
     let client = await MongoClient.connect(url)
     let dbo = client.db("ATNTOY")
     console.log(id)
-    if(name.length <= 0 || price <= 0 || picURL.length <= 0 || amount <= 0)
-    { 
-        res.render('updateProduct', {update_err: 'There incorrect infomation please recorrect'})
-    } else {
+     if (name.length <= 0, 'name') {
+        res.render('updateProduct',{'nameError': 'Name cant be blank'})
+        return
+    }
     await dbo.collection("TOY").updateOne({_id: ObjectId(id)}, {
          $set: {
              'name': name,
@@ -166,5 +166,4 @@ app.post('/updateProduct', async(req,res)=>{
          }
     })
     res.redirect('/viewAll')
-    }
 })
