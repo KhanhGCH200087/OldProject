@@ -149,14 +149,14 @@ app.post('/updateProduct', async(req,res)=>{
     let picURL = req.body.txtPicURL
     let description = req.body.txtDescription
     let amount = parseInt(req.body.txtAmount)
-    let client = await MongoClient.connect(url)
-    let dbo = client.db("ATNTOY")
-    console.log(id)
     if (name.length <= 0 || price <= 0 || picURL.length <= 0 || amount <= 0 || description <= 0)
     {
         res.render('updateProduct',{update_err : 'Please check the field again for incorrect info'})
-        //return
-    }else 
+        return
+    } 
+    let client = await MongoClient.connect(url)
+    let dbo = client.db("ATNTOY")
+    console.log(id)
     await dbo.collection("TOY").updateOne({_id: ObjectId(id)}, {
          $set: {
              'name': name,
