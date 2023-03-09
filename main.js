@@ -31,7 +31,7 @@ app.post('/search',async (req,res)=>{
     }
     let server = await MongoClient.connect(url)
     let dbo = server.db("ATNTOY")
-    let products = await dbo.collection('TOY').find({$or:[{'name': new RegExp(name,'i')}]}).toArray() //Find here 
+    let products = await dbo.collection('TOY').find({'name': new RegExp(name,'i')}).toArray() //Find here 
     res.render('AllProduct',{'products':products})
 })
 
