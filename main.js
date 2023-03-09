@@ -149,23 +149,13 @@ app.post('/updateProduct', async(req,res)=>{
     let picURL = req.body.txtPicURL
     let description = req.body.txtDescription
     let amount = parseInt(req.body.txtAmount)
-    if (name.length <= 2) {
-        res.render('viewAll', { 'nameError': 'Name cannot be less than 5 character !' })
-        return
-    }
-    if(price <= 0)
-    {
-        res.render('viewAll', { 'priceError': 'Price cannot be equal or less than 0 !' })
-        return
-    }
-    if(picURL.length <= 0)
-    {
-        res.render('viewAll', { 'pictureError': 'URL of picture cannot be empty !' })
-        return
-    }
     let client = await MongoClient.connect(url)
     let dbo = client.db("ATNTOY")
     console.log(id)
+    if(name.length <= 0 || price <= 0 || picURL.length <= 0 || amount <= 0)
+    { 
+        res.render('updateProduct', {update_err: 'There incorrect infomation please recorrect'})
+    } else {
     await dbo.collection("TOY").updateOne({_id: ObjectId(id)}, {
          $set: {
              'name': name,
@@ -176,4 +166,5 @@ app.post('/updateProduct', async(req,res)=>{
          }
     })
     res.redirect('/viewAll')
+    }
 })
