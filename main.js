@@ -39,7 +39,6 @@ app.post('/search',async (req,res)=>{
 app.get('/create',(req,res)=>{
     res.render('NewProduct')
 })
-
 app.post('/NewProduct',async (req,res)=>{
     let name = req.body.txtName 
     let price = parseFloat(req.body.txtPrice)
@@ -66,7 +65,6 @@ app.post('/NewProduct',async (req,res)=>{
         }
         res.redirect('/viewAll')
     }
-    
 })
 
 //----------------------------------------------------------------------------
