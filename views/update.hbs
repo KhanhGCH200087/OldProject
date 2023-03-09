@@ -37,10 +37,12 @@
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" placeholder="Enter email" name="txtName" value="{{products.name}}">
+      <div style="color: red;">{{nameError}}</div> 
     </div>
     <div class="form-group">
       <label for="price">Price:</label>
       <input type="double" class="form-control" id="price" placeholder="Enter Price" name="txtPrice" value="{{products.price}}">
+      <div style="color: red;">{{priceError}}</div> 
     </div>
     <div class="form-group">
       <label for="amount">Quantity:</label>
@@ -53,6 +55,7 @@
     <div class="form-group">
       <label for="picture">Picture</label>
       <input type="text" class="form-control" id="picture" placeholder="Enter URL" name="txtPicURL" value="{{products.picURL}}"><img src="{{products.picURL}}" height="300" width="200" style="margin-top: 50px;">
+      <div style="color: red;">{{pictureError}}</div> 
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
